@@ -1,20 +1,28 @@
-from typing import List, Optional  
+from typing import List, Dict, Optional  
 from core.openai import OpenAIClient  
+from core.document_store import DocumentStore  
 import json  
 import os  
 
 class Chatbot:  
     def __init__(self):  
         self.client = OpenAIClient()  
+        self.document_store = DocumentStore()  
         self.conversation_history: List[dict] = []  
-        self.max_history = 10  # 최대 대화 기록 수  
+        self.max_history = 10  
+        
+    def add_knowledge(self, texts: List[str], metadata: Optional[List[Dict]] = None):  
+        """지식 베이스에 문서 추가"""  
+        self.document_store.add_documents(texts, metadata)  
         
     def get_context_from_rag(self, query: str) -> Optional[str]:  
-        """  
-        RAG 시스템에서 관련 컨텍스트 검색  
-        실제 구현 시 벡터 DB나 다른 검색 시스템과 연동  
-        """  
-        # TODO: 실제 RAG 구현  
+        """RAG 시스템에서 관련 컨텍스트 검색"""  
+        try:  
+            relevant_docs = self.document_store.search(query)  
+            if relevant_docs:  
+                return "\n".join(relevant_docs)  
+        except Exception as e:  
+            print(f"RAG 검색 중 오류 발생: {str(e)}")  
         return None  
         
     def save_conversation(self):  
@@ -60,11 +68,20 @@ class Chatbot:
             
     def clear_history(self):  
         """대화 기록 초기화"""  
-        self.save_conversation()  # 기존 대화 저장  
+        self.save_conversation()  
         self.conversation_history = []  
 
 def main():  
     chatbot = Chatbot()  
+    
+    # 예제 지식 추가  
+    example_texts = [  
+        "파이썬은 1991년에 귀도 반 로섬이 개발한 프로그래밍 언어입니다.",  
+        "파이썬은 읽기 쉽고 간단한 문법을 가진 언어입니다.",  
+        "ChatGPT는 OpenAI가 개발한 대규모 언어 모델입니다."  
+    ]  
+    chatbot.add_knowledge(example_texts)  
+    
     print("챗봇을 시작합니다. 종료하려면 'quit' 또는 'exit'를 입력하세요.")  
     
     while True:  

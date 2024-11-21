@@ -8,7 +8,9 @@ class OpenAIClient:
         load_dotenv()  
         self.client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))  
         self.model = "gpt-3.5-turbo"  
-        self.system_prompt = """You are a helpful AI assistant.   
+        self.system_prompt = """You are a helpful AI assistant with strong contextual awareness.   
+        Always maintain context from the conversation history and refer back to previous information when relevant.   
+        If you're unsure about something previously discussed, you can ask for clarification.  
         Provide clear, accurate, and concise responses while maintaining a natural conversational tone."""  
         
     def get_completion(  
