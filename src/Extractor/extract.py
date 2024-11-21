@@ -1,20 +1,25 @@
 from datetime import datetime  
-from dateutil.relativedelta import relativedelta  
 import time  
+
+from dateutil.relativedelta import relativedelta  
 from selenium.webdriver.common.by import By  
 from selenium.webdriver.support.ui import WebDriverWait  
 from selenium.webdriver.support import expected_conditions as EC  
 
 from core.selenium import setup_driver, handle_popups  
-from parser.petronet_parser import extract_table_data, set_date_and_search  
-from loader.db import DatabaseLoader  
+from parser.petronet_parser import extract_table_data, set_date_and_search
+from loader.db.connector import Database
+from loader.db.query import query_creat_table_oil, query_update_oilprice
 
-def main():  
+def get_oilprice(dbinfo):  
     driver = None  
-    db_loader = None  
+    conn = None  
     try:  
         driver = setup_driver()  
-        db_loader = DatabaseLoader()  
+
+        conn = Database(**dbinfo)  
+        query = query_creat_table_oil()
+        conn.setter(query)
 
         print("메인 페이지 접속...")  
         driver.get("https://www.petronet.co.kr")  
@@ -49,10 +54,12 @@ def main():
                 set_date_and_search(driver, current_start, current_end)  
                 
                 headers, data = extract_table_data(driver, current_start)  # current_start 전달  
-                print(f"추출된 데이터 행 수: {len(data)}")  
-            
-                # 데이터 저장  
-                db_loader.insert_oil_price_data(data, headers)  
+                print(f"추출된 데이터 행 수: {len(data)}")
+
+                # 데이터 저장
+                query = query_update_oilprice(data)
+                conn.setter(query)  
+
                 print(f"기간 {current_start.strftime('%Y.%m')} ~ {current_end.strftime('%Y.%m')} 데이터 저장 완료")  
 
                 # 다음 처리할 기간 설정  
@@ -72,10 +79,22 @@ def main():
         print(f"전체 프로세스 오류: {str(e)}")  
 
     finally:  
-        if db_loader:  
-            db_loader.close_connection()  
-        if driver:  
+        if driver is not None:  
             driver.quit()  
 
-if __name__ == "__main__":  
-    main()
+if __name__ == "__main__":
+    import os
+
+    from dotenv import load_dotenv  
+
+    # .env 파일 로드
+    load_dotenv()
+
+    dbinfo = {
+        "DB_HOST":os.getenv('DB_HOST'),
+        "DB_PORT":int(os.getenv('DB_PORT')),
+        "DB_USER":os.getenv('DB_USER'),
+        "DB_PASSWORD":os.getenv('DB_PASSWORD'),
+        "DB_NAME":os.getenv('DB_NAME')
+    }
+    get_oilprice(dbinfo)
