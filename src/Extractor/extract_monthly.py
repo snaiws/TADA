@@ -11,6 +11,8 @@ from parser.petronet_parser import extract_table_data, set_date_and_search
 from loader.db.connector import Database
 from loader.db.query import query_creat_table_oil, query_update_oilprice
 
+
+
 def get_oilprice(dbinfo):  
     driver = None  
     conn = None  
@@ -89,12 +91,12 @@ if __name__ == "__main__":
 
     # .env 파일 로드
     load_dotenv()
-
+    
     dbinfo = {
-        "DB_HOST":os.getenv('DB_HOST'),
-        "DB_PORT":int(os.getenv('DB_PORT')),
-        "DB_USER":os.getenv('DB_USER'),
-        "DB_PASSWORD":os.getenv('DB_PASSWORD'),
-        "DB_NAME":os.getenv('DB_NAME')
+        "host":os.getenv('DB_HOST'),
+        "port":int(os.getenv('DB_PORT')),
+        "user":os.getenv('DB_USER'),
+        "password":os.getenv('DB_PASSWORD'),
+        "database":os.getenv('DB_NAME')
     }
     get_oilprice(dbinfo)
