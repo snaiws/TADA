@@ -1,24 +1,46 @@
+from functools import wraps  
+from typing import List  
 import mysql.connector  
 from datetime import datetime  
-from typing import List  
 import os  
 from dotenv import load_dotenv  
 
+def singleton(cls):  
+    instances = {}  
+    
+    @wraps(cls)  
+    def get_instance(*args, **kwargs):  
+        if cls not in instances:  
+            instances[cls] = cls(*args, **kwargs)  
+        return instances[cls]  
+    
+    return get_instance  
+
+@singleton  
 class DatabaseLoader:  
     def __init__(self):  
         """데이터베이스 연결 초기화"""  
-        load_dotenv()  
-        
-        self.connection = mysql.connector.connect(  
-            host=os.getenv('DB_HOST'),  
-            port=int(os.getenv('DB_PORT', '50007')),  # 기본값으로 50007 설정
-            user=os.getenv('DB_USER'),  
-            password=os.getenv('DB_PASSWORD'),  
-            database=os.getenv('DB_NAME')  
-        )  
-        self.cursor = self.connection.cursor()  
-        self._initialized = False  
-        self.initialize_table()  
+        if not hasattr(self, '_initialized_connection'):  
+            load_dotenv()  
+            
+            self.connection = mysql.connector.connect(  
+                host=os.getenv('DB_HOST'),  
+                port=int(os.getenv('DB_PORT', '50007')),  
+                user=os.getenv('DB_USER'),  
+                password=os.getenv('DB_PASSWORD'),  
+                database=os.getenv('DB_NAME')  
+            )  
+            self.cursor = self.connection.cursor()  
+            self._initialized = False  
+            self._initialized_connection = True  
+            self.initialize_table()  
+
+    def close_connection(self):  
+        """연결 종료"""  
+        if hasattr(self, 'cursor') and self.cursor:  
+            self.cursor.close()  
+        if hasattr(self, 'connection') and self.connection:  
+            self.connection.close()  
 
     def initialize_table(self):  
         """테이블 초기화"""  
@@ -76,6 +98,8 @@ class DatabaseLoader:
         
         self._initialized = True  
         print("초기화 프로세스 완료")
+
+
 
     def insert_oil_price_data(self, data: List[List[str]], headers: List[str]):  
         """유가 데이터 삽입 또는 업데이트"""  
