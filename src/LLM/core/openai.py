@@ -1,22 +1,56 @@
-import openai
-# OpenAI 라이브러리 버전 0.28로 다운그레이드하여 이전 API 방식으로 코드를 실행
-# pip install openai==0.28
+import os  
+from typing import List, Optional  
+from openai import OpenAI  
+from dotenv import load_dotenv  
 
-def get_gpt_response(key,prompt):
-    openai.api_key = key
-    response = openai.chat.completions.create(
-        model="gpt-4",  # 사용 모델
-        messages=[{"role": "system", "content": "You are a helpful assistant."},
-                      {"role": "user", "content": prompt}],
-        max_tokens=300
+class OpenAIClient:  
+    def __init__(self):  
+        load_dotenv()  
+        self.client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))  
+        self.model = "gpt-3.5-turbo"  
+        self.system_prompt = """You are a helpful AI assistant.   
+        Provide clear, accurate, and concise responses while maintaining a natural conversational tone."""  
+        
+    def get_completion(  
+        self,   
+        messages: List[dict],  
+        temperature: float = 0.7,  
+        max_tokens: Optional[int] = None  
+    ) -> str:  
+        """OpenAI API를 호출하여 응답을 생성"""  
+        try:  
+            response = self.client.chat.completions.create(  
+                model=self.model,  
+                messages=messages,  
+                temperature=temperature,  
+                max_tokens=max_tokens  
+            )  
+            return response.choices[0].message.content  
+        except Exception as e:  
+            print(f"Error during API call: {str(e)}")  
+            return "죄송합니다. 응답 생성 중 오류가 발생했습니다."  
+
+    def create_messages(  
+        self,   
+        user_input: str,   
+        conversation_history: List[dict] = None,  
+        context: str = None  
+    ) -> List[dict]:  
+        """대화 메시지 구성"""  
+        messages = [{"role": "system", "content": self.system_prompt}]  
+        
+        # RAG 컨텍스트가 있는 경우 추가  
+        if context:  
+            messages.append({  
+                "role": "system",   
+                "content": f"Consider this relevant information: {context}"  
+            })  
+        
+        # 대화 기록 추가  
+        if conversation_history:  
+            messages.extend(conversation_history)  
             
-    )        
-    return response.choices[0].message.content
-    
-def check_openai_api_key(api_key):
-    client = openai.OpenAI(api_key=api_key)
-    try:
-        client.models.list()
-        return True
-    except:
-        return False
+        # 현재 사용자 입력 추가  
+        messages.append({"role": "user", "content": user_input})  
+        
+        return messages
