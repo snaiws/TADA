@@ -7,6 +7,9 @@ from loader.db.connector import Database
 from loader.db.query import query_creat_table_daily_oil, query_update_daily_oilprice  
 
 def get_oilprice_now(dbinfo):  
+    driver = None  
+    db = None  
+    
     options = webdriver.ChromeOptions()  
     options.add_argument('--headless')  
     options.add_argument('--no-sandbox')  
@@ -26,44 +29,53 @@ def get_oilprice_now(dbinfo):
             EC.presence_of_element_located((By.XPATH, '//*[@id="oilcon1"]/div/dl[1]/dd/span[1]'))  
         )  
         
-        if price_element:  
-            price = float(price_element.text.replace(',', ''))  
-            print(f"Found price: {price}")  
+        if not price_element:  
+            raise Exception("Price element not found")  
             
-            # 데이터베이스 연결  
-            db = Database(  
-                host=dbinfo["host"],  
-                port=dbinfo["port"],  
-                user=dbinfo["user"],  
-                password=dbinfo["password"],  
-                database=dbinfo["database"]  
-            )  
-            
-            # 테이블 생성 확인  
-            db.setter(query_creat_table_daily_oil())  
-            
-            # 현재 날짜  
-            today = datetime.now().strftime('%Y-%m-%d')  
-            
-            # 데이터 삽입 (날짜와 가격만 전달)  
-            data = [today, price]  
-            insert_query = query_update_daily_oilprice(data)  
-            db.setter(insert_query)  
-            
-            print(f"Successfully updated daily oil price: {price} for date: {today}")  
-            
-            # 데이터베이스 연결 종료  
-            db.close()  
-            
-        else:  
-            print("Price element not found")  
+        price = float(price_element.text.replace(',', ''))  
+        print(f"Found price: {price}")  
+        
+        # 데이터베이스 연결  
+        db = Database(  
+            host=dbinfo["host"],  
+            port=dbinfo["port"],  
+            user=dbinfo["user"],  
+            password=dbinfo["password"],  
+            database=dbinfo["database"]  
+        )  
+        
+        # 테이블 생성 확인  
+        db.setter(query_creat_table_daily_oil())  
+        
+        # 현재 날짜  
+        today = datetime.now().strftime('%Y-%m-%d')  
+        
+        # 데이터 삽입 (날짜와 가격만 전달)  
+        data = [today, price]  
+        insert_query = query_update_daily_oilprice(data)  
+        db.setter(insert_query)  
+        
+        print(f"Successfully updated daily oil price: {price} for date: {today}")  
+        return price  
             
     except Exception as e:  
         print(f"Error processing data: {e}")  
+        raise e  # 에러를 상위로 전파  
         
     finally:  
         # 브라우저 종료  
-        driver.quit()  
+        if driver:  
+            try:  
+                driver.quit()  
+            except Exception as e:  
+                print(f"Error closing browser: {e}")  
+                
+        # 데이터베이스 연결 종료  
+        if db:  
+            try:  
+                db.close()  
+            except Exception as e:  
+                print(f"Error closing database connection: {e}")
 
 if __name__ == "__main__":  
     import os  

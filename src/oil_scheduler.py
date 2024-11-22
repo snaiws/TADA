@@ -84,7 +84,12 @@ def run_scheduler():
     """스케줄러 실행"""  
     scheduler = create_scheduler()  
     
-    try:  
+    try:
+        
+        # 스케줄러 시작할 때, 처음 1회 실행함.
+        schedule_job()
+
+
         print(f"[{datetime.now()}] 스케줄러 시작...")  
         print(f"설정: {SCHEDULE_INTERVAL}분 간격으로 실행")  
         scheduler.start()  

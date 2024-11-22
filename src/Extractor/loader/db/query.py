@@ -39,12 +39,12 @@ def query_update_oilprice(data):
 def query_creat_table_daily_oil():  
     query = """  
         CREATE TABLE IF NOT EXISTS daily_oil_price (  
-            date DATE PRIMARY KEY,  
+            date DATE,  
             price DECIMAL(10, 2) NOT NULL,  
-            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,  
-            updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP  
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         )  
     """  
+
     return query  
 
 
@@ -55,9 +55,6 @@ def query_update_daily_oilprice(data):
     query = f"""  
     INSERT INTO daily_oil_price (date, price)  
     VALUES ('{data[0]}', {data[1]})  
-    ON DUPLICATE KEY UPDATE  
-        price = VALUES(price),  
-        updated_at = CURRENT_TIMESTAMP  
     """  
     return query  
 

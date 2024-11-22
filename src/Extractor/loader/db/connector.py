@@ -20,75 +20,76 @@ def singleton(cls):
 @singleton  
 class Database:  
     def __init__(self, host: str, port: int, user: str, password: str, database: str):  
-        """데이터베이스 연결 초기화"""  
-        self.__host = host
-        self.__port = port
-        self.__user = user
-        self.__password = password
-        self.__database = database
+        self.__host = host  
+        self.__port = port  
+        self.__user = user  
+        self.__password = password  
+        self.__database = database  
+        self.connection = None  
+        self.cursor = None  
+        self.connect()  
 
-        self.connection = None
-        self.cursor = None
-        self.connect()  # 초기 연결 설정
+    def connect(self):  
+        """데이터베이스 연결 설정"""  
+        try:  
+            self.connection = pymysql.connect(  
+                host=self.__host,  
+                port=self.__port,  
+                user=self.__user,  
+                password=self.__password,  
+                database=self.__database,  
+                cursorclass=pymysql.cursors.DictCursor  
+            )  
+            self.cursor = self.connection.cursor()  
+            print("Database connected successfully.")  
+        except Exception as e:  
+            print(f"Error connecting to database: {e}")  
+            self.connection = None  
+            self.cursor = None  
+            raise e  
 
+    def _ensure_connection(self):  
+        """연결 상태 확인 및 필요시 재연결"""  
+        try:  
+            if self.connection is None or not self.connection.open:  
+                self.connect()  
+            else:  
+                self.connection.ping(reconnect=True)  
+        except Exception:  
+            self.connect()  
 
-    def connect(self):
-        """데이터베이스 연결 설정"""
-        if self.connection is None or not self._is_connected():
-            try:
-                self.connection = pymysql.connect(
-                    host=self.__host,
-                    port=self.__port,
-                    user=self.__user,
-                    password=self.__password,
-                    database=self.__database,
-                    cursorclass=pymysql.cursors.DictCursor  # 결과를 dict 형태로 반환
-                )
-                self.cursor = self.connection.cursor()
-                print("Database connected successfully.")
-            except Exception as e:
-                self.connection = None
-                self.cursor = None
-                raise e
+    def getter(self, query: str, params: tuple = ()) -> List[dict]:  
+        """SELECT 쿼리 실행 및 결과 반환"""  
+        try:  
+            self._ensure_connection()  
+            self.cursor.execute(query, params)  
+            return self.cursor.fetchall()  
+        except Exception as e:  
+            print(f"Error in getter: {e}")  
+            raise e  
 
-    def _is_connected(self):
-        """연결 상태 확인"""
-        try:
-            if self.connection:
-                self.connection.ping(reconnect=True)
-                return True
-        except Exception:
-            return False
-        return False
-
-    def getter(self, query: str, params: tuple = ()) -> List[dict]:
-        """SELECT 쿼리 실행 및 결과 반환"""
-        try:
-            if not self._is_connected():
-                self.connect()
-            self.cursor.execute(query, params)
-            return self.cursor.fetchall()
-        except Exception as e:
-            raise e
-
-    def setter(self, query: str, params: tuple = ()) -> None:
-        """INSERT, UPDATE, DELETE 쿼리 실행"""
-        try:
-            if not self._is_connected():
-                self.connect()
-            self.cursor.execute(query, params)
-            self.connection.commit()
-        except Exception as e:
-            self.connection.rollback()
-            raise e
+    def setter(self, query: str, params: tuple = ()) -> None:  
+        """INSERT, UPDATE, DELETE 쿼리 실행"""  
+        try:  
+            self._ensure_connection()  
+            self.cursor.execute(query, params)  
+            self.connection.commit()  
+        except Exception as e:  
+            if self.connection:  
+                self.connection.rollback()  
+            print(f"Error in setter: {e}")  
+            raise e  
 
     def close(self):  
         """연결 종료"""  
-        if self.cursor:  
-            self.cursor.close()  
-        if self.connection:  
-            self.connection.close()  
-            print("Database connection closed.")
+        try:  
+            if self.cursor:  
+                self.cursor.close()  
+            if self.connection and self.connection.open:  
+                self.connection.close()  
+                print("Database connection closed.")  
+        except Exception as e:  
+            print(f"Error closing database connection: {e}")
 
 
 if __name__ == "__main__":
