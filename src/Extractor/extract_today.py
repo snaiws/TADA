@@ -4,12 +4,11 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC  
 from datetime import datetime  
 from loader.db.connector import Database  
-from loader.db.query import query_creat_table_oil, query_update_oilprice  
+from loader.db.query import query_creat_table_daily_oil, query_update_daily_oilprice  
 
 def get_oilprice_now(dbinfo):  
-    # Chrome 옵션 설정  
     options = webdriver.ChromeOptions()  
-    options.add_argument('--headless')  # 브라우저 창을 띄우지 않음  
+    options.add_argument('--headless')  
     options.add_argument('--no-sandbox')  
     options.add_argument('--disable-dev-shm-usage')  
 
@@ -41,17 +40,17 @@ def get_oilprice_now(dbinfo):
             )  
             
             # 테이블 생성 확인  
-            db.setter(query_creat_table_oil())  
+            db.setter(query_creat_table_daily_oil())  
             
             # 현재 날짜  
             today = datetime.now().strftime('%Y-%m-%d')  
             
-            # 데이터 삽입  
-            data = [[today, '0', str(price), '0', '0', '0', '0', '0', '0']]  
-            insert_query = query_update_oilprice(data)  
+            # 데이터 삽입 (날짜와 가격만 전달)  
+            data = [today, price]  
+            insert_query = query_update_daily_oilprice(data)  
             db.setter(insert_query)  
             
-            print(f"Successfully updated oil price: {price} for date: {today}")  
+            print(f"Successfully updated daily oil price: {price} for date: {today}")  
             
             # 데이터베이스 연결 종료  
             db.close()  
