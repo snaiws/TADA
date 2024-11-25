@@ -1,0 +1,62 @@
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/static/login.css" />
+  </head>
+  <body>
+    <div class="login">
+      <div class="contents">
+        <p class="title">
+          <span class="text-wrapper">T</span>
+          <span class="span">argeted </span>
+          <span class="text-wrapper">A</span>
+          <span class="span">utomation of </span>
+          <span class="text-wrapper">D</span>
+          <span class="span">ata </span>
+          <span class="text-wrapper">A</span>
+          <span class="span">nalysis</span>
+        </p>
+        <div class="div">로그인</div>
+        <div class="description">당신을 증명하세요</div>
+
+        <div class="login_image"></div>
+        <!-- 로그인 폼 -->
+        <form action="/auth/login" method="POST" class="login-form">
+          <div class="login-inputs">
+            <div class="login-input">
+              <!-- ID 입력 -->
+              <div class="login-item">
+                <label for="id" class="login-item-text">ID:</label>
+              </div>
+              <input
+                type="text"
+                id="id"
+                name="username"
+                placeholder="아이디를 입력하세요..."
+                required
+                class="input"
+              />
+            </div>
+            
+            <div class="login-input">
+              <!-- PW 입력 -->
+              <div class="login-item">
+                <label for="password" class="login-item-text">PW:</label>
+              </div>
+              <input
+                type="password"
+                id="password"
+                name="password"
+                placeholder="비밀번호를 입력하세요..."
+                required
+                class="input"
+              />
+            </div>
+          </div>
+          <!-- 로그인 버튼 -->
+          <button type="submit" class="login-button">로그인</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

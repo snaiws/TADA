@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/static/global.css" />
+    <link rel="stylesheet" href="/static/detail.css" />
+  </head>
+  <body>
+    <div class="global">
+      <div class="top-bar">
+        <img class="top-bar-logo"/>
+        <a href="{{ url_for('main.main') }}" class="top-bar-title">Targeted Automation of Data Analysis</a>
+        <div class="navbar">
+          <div class="navbar-textfield">
+            <div class="navbar-text">데이터셋 검색...</div>
+            <div class="navbar-icon"></div>
+          </div>
+          <a href="{{ url_for('datasets.list_datasets') }}" class="top-bar-tab">데이터셋</a>
+          <a href="{{ url_for('upload.upload_file') }}" class="top-bar-tab">업로드</a>
+          <a href="{{ url_for('text2sql.text2sql') }}" class="top-bar-tab">요청</a>
+          <a href="{{ url_for('auth.login') }}" class="top-bar-tab">로그아웃</a>
+        </div>
+      </div>
+
+      <div class="dataset-detail">
+        <div class="title-detail">
+          <div class="view"><div class="text-wrapper">데이터셋1</div></div>
+        </div>
+        <div class="content">
+          <div class="datadetailcard">
+            <div class="frame"><div class="div">파일크기</div></div>
+            <div class="text-content"><div class="text-wrapper-2">텍스트 내용</div></div>
+          </div>
+          <div class="datadetailcard">
+            <div class="frame"><div class="div">접근권한</div></div>
+            <div class="text-content"><div class="text-wrapper-2">텍스트 내용</div></div>
+          </div>
+          <div class="datadetailcard">
+            <div class="frame"><div class="div">민감데이터여부</div></div>
+            <div class="text-content"><div class="text-wrapper-2">텍스트 내용</div></div>
+          </div>
+          <div class="datadetailcard">
+            <div class="frame"><div class="div">암호화여부</div></div>
+            <div class="text-content"><div class="text-wrapper-2">텍스트 내용</div></div>
+          </div>
+          <div class="datadetailcard">
+            <div class="frame"><div class="div">생성일</div></div>
+            <div class="text-content"><div class="text-wrapper-2">텍스트 내용</div></div>
+          </div>
+          <div class="datadetailcard">
+            <div class="frame"><div class="div">갱신일</div></div>
+            <div class="text-content"><div class="text-wrapper-2">텍스트 내용</div></div>
+          </div>
+          <div class="datadetailcard">
+            <div class="frame"><div class="div">이력관리여부</div></div>
+            <div class="text-content"><div class="text-wrapper-2">텍스트 내용</div></div>
+          </div>
+          <div class="datadetailcard">
+            <div class="frame"><div class="div">주기적 분석 여부</div></div>
+            <div class="text-content"><div class="text-wrapper-2">텍스트 내용</div></div>
+          </div>
+          <div class="datadetailcard">
+            <div class="frame"><div class="div">마지막 분석일</div></div>
+            <div class="text-content"><div class="text-wrapper-2">텍스트 내용</div></div>
+          </div>
+          <div class="datadetailcard">
+            <div class="frame"><div class="div">Data description</div></div>
+            <div class="datadetailcard-file">
+              <div class="div-2">
+                <div class="text-wrapper-3">이름</div>
+                <div class="text-wrapper-3">다운로드</div>
+                <div class="text-wrapper-3">분석일</div>
+                <div class="text-wrapper-3">자동/수동</div>
+                <div class="text-wrapper-3">완성도</div>
+              </div>
+              <div class="div-2">
+                <div class="text-wrapper-4">report.pdf</div>
+                <div class="small-button"><div class="text-wrapper-5">다운로드</div></div>
+                <div class="text-wrapper-4">YYYY-mm-DD HH:MM:SS</div>
+                <div class="text-wrapper-4">자동</div>
+                <div class="text-wrapper-4">88%</div>
+              </div>
+            </div>
+            <div class="div-2">
+              <div class="text-wrapper-4">report.pdf</div>
+              <div class="small-button"><div class="text-wrapper-5">다운로드</div></div>
+              <div class="text-wrapper-4">YYYY-mm-DD HH:MM:SS</div>
+              <div class="text-wrapper-4">자동</div>
+              <div class="text-wrapper-4">88%</div>
+            </div>
+            <div class="div-2">
+              <div class="text-wrapper-4">report.pdf</div>
+              <div class="small-button"><div class="text-wrapper-5">다운로드</div></div>
+              <div class="text-wrapper-4">YYYY-mm-DD HH:MM:SS</div>
+              <div class="text-wrapper-4">자동</div>
+              <div class="text-wrapper-4">88%</div>
+            </div>
+          </div>
+          <div class="datadetailcard">
+            <div class="frame"><div class="div">Data Quality Analysis</div></div>
+            <div class="datadetailcard-file">
+              <div class="div-2">
+                <div class="text-wrapper-3">이름</div>
+                <div class="text-wrapper-3">다운로드</div>
+                <div class="text-wrapper-3">분석일</div>
+                <div class="text-wrapper-3">자동/수동</div>
+                <div class="text-wrapper-3">완성도</div>
+              </div>
+              <div class="div-2">
+                <div class="text-wrapper-4">report.pdf</div>
+                <div class="small-button"><div class="text-wrapper-5">다운로드</div></div>
+                <div class="text-wrapper-4">YYYY-mm-DD HH:MM:SS</div>
+                <div class="text-wrapper-4">자동</div>
+                <div class="text-wrapper-4">88%</div>
+              </div>
+            </div>
+            <div class="div-2">
+              <div class="text-wrapper-4">report.pdf</div>
+              <div class="small-button"><div class="text-wrapper-5">다운로드</div></div>
+              <div class="text-wrapper-4">YYYY-mm-DD HH:MM:SS</div>
+              <div class="text-wrapper-4">자동</div>
+              <div class="text-wrapper-4">88%</div>
+            </div>
+            <div class="div-2">
+              <div class="text-wrapper-4">report.pdf</div>
+              <div class="small-button"><div class="text-wrapper-5">다운로드</div></div>
+              <div class="text-wrapper-4">YYYY-mm-DD HH:MM:SS</div>
+              <div class="text-wrapper-4">자동</div>
+              <div class="text-wrapper-4">88%</div>
+            </div>
+          </div>
+          <div class="datadetailcard">
+            <div class="frame"><div class="div">other analysis</div></div>
+            <div class="datadetailcard-file">
+              <div class="div-2">
+                <div class="text-wrapper-3">이름</div>
+                <div class="text-wrapper-3">다운로드</div>
+                <div class="text-wrapper-3">분석일</div>
+                <div class="text-wrapper-3">자동/수동</div>
+                <div class="text-wrapper-3">완성도</div>
+              </div>
+              <div class="div-2">
+                <div class="text-wrapper-4">report.pdf</div>
+                <div class="small-button"><div class="text-wrapper-5">다운로드</div></div>
+                <div class="text-wrapper-4">YYYY-mm-DD HH:MM:SS</div>
+                <div class="text-wrapper-4">자동</div>
+                <div class="text-wrapper-4">88%</div>
+              </div>
+            </div>
+            <div class="div-2">
+              <div class="text-wrapper-4">report.pdf</div>
+              <div class="small-button"><div class="text-wrapper-5">다운로드</div></div>
+              <div class="text-wrapper-4">YYYY-mm-DD HH:MM:SS</div>
+              <div class="text-wrapper-4">자동</div>
+              <div class="text-wrapper-4">88%</div>
+            </div>
+            <div class="div-2">
+              <div class="text-wrapper-4">report.pdf</div>
+              <div class="small-button"><div class="text-wrapper-5">다운로드</div></div>
+              <div class="text-wrapper-4">YYYY-mm-DD HH:MM:SS</div>
+              <div class="text-wrapper-4">자동</div>
+              <div class="text-wrapper-4">88%</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="footer-wrapper">
+          <p class="footer-text">© 2024 Targeted Automation of Data Analysis. Hello, my friend.</p>
+        </div>
+      </footer>
+    </div>
+
+  </body>
+</html>

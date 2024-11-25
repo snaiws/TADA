@@ -1,0 +1,160 @@
+.login {
+  display: flex;
+  flex-direction: column;
+  height: 100vh; /* 화면 전체 높이 */
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  /* position: relative; */
+  background-color: #ffffff;
+}
+
+.login .contents {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 가로 중앙 정렬 */
+  justify-content: center; /* 세로 중앙 정렬 */
+  gap: 10px;
+  width: 100%; /* 너비를 부모 컨테이너에 맞춤 */
+  max-width: 600px; /* 중앙 정렬을 위해 최대 너비 설정 */
+  padding: 0; /* 불필요한 패딩 제거 */
+}
+
+.login .title {
+  width: 874px;
+  margin-top: -1.00px;
+  margin-left: -137.00px;
+  margin-right: -137.00px;
+  color: transparent;
+  position: relative;
+  font-family: "Roboto-Bold", Helvetica;
+  font-weight: 700;
+  font-size: 40px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 48px;
+}
+
+.login .text-wrapper {
+  color: #ff0000;
+}
+
+.login .span {
+  color: #000000;
+}
+
+.login .div {
+  width: 520px;
+  color: #000000;
+  position: relative;
+  font-family: "Roboto-Bold", Helvetica;
+  font-weight: 700;
+  font-size: 40px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 48px;
+}
+
+.login .description {
+  position: relative;
+  width: 520px;
+  font-family: "Roboto-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+
+.login .login_image {
+  position: relative;
+  width: 600px;
+  height: 170px;
+  background-image: url(./images/로그인이미지.png);
+  background-size: cover;
+  background-position: 50% 50%;
+}
+
+.login .login-form {
+  display: flex;
+  height: 157px;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  position: relative;
+  align-self: stretch;
+  width: 600px;
+  background-color: #c0dfea;
+  border-radius: 10px;
+}
+
+.login .login-inputs {
+  display: flex;
+  height: 90px;
+  width: 320px;
+  flex-direction: column; /* 자식 요소를 세로로 정렬 */
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  position: relative;
+}
+
+.login .login-input {
+  display: flex;
+  height: 40px;
+  width: 320px;
+  align-self: stretch;
+  align-items: center;
+  justify-content: center;
+  /* gap: 30px; */
+  position: relative;
+}
+
+.login .login-item {
+  display: flex;
+  flex-direction: column;
+  width: 40px;
+  height: 40px;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 10px;
+  position: relative;
+}
+
+.login .login-item-text {
+  position: relative;
+  width: fit-content;
+  align-self: stretch;
+  margin-left: 5.00px;
+  font-family: "Roboto-Regular", Helvetica;
+  font-weight: 400;
+  color: #000000;
+  font-size: 16px;
+  text-align: center;
+  letter-spacing: 0;
+  line-height: 24px;
+}
+
+.login .input {
+  position: relative;
+  width: 260px;
+  height: 40px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+
+.login .login-button {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  background-color: #ffaf1a;
+  border-radius: 10px;
+  overflow: hidden;
+  border: 1px solid;
+  border-color: #ffb158;
+}
+

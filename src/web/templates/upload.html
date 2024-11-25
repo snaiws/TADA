@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <link rel="stylesheet" href="/static/global.css" />
+    <link rel="stylesheet" href="/static/upload.css" />
+  </head>
+  <body>
+    <div class="global">
+      <div class="top-bar">
+        <img class="top-bar-logo"/>
+        <a href="{{ url_for('main.main') }}" class="top-bar-title">Targeted Automation of Data Analysis</a>
+        <div class="navbar">
+          <div class="navbar-textfield">
+            <div class="navbar-text">데이터셋 검색...</div>
+            <div class="navbar-icon"></div>
+          </div>
+          <a href="{{ url_for('datasets.list_datasets') }}" class="top-bar-tab">데이터셋</a>
+          <a href="{{ url_for('upload.upload_file') }}" class="top-bar-tab">업로드</a>
+          <a href="{{ url_for('text2sql.text2sql') }}" class="top-bar-tab">요청</a>
+          <a href="{{ url_for('auth.login') }}" class="top-bar-tab">로그아웃</a>
+        </div>
+      </div>
+      <div class="title">
+        <div class="container">
+          <div class="text-wrapper">문서 업로드</div>
+          <div class="description">TADA가 참고할 수 있도록 양식과 분석보고서를 업로드 하세요</div>
+        </div>
+      </div>
+
+      <div class="upload">
+        <div class="section">
+          <div class="frame">
+            <div class="div">
+              <div class="title-2">데이터 분석 업로드</div>
+              <div class="selection">
+                <div class="label-normal"><div class="label-text">Upload...</div></div>
+              </div>
+              <div class="description-2">Select dataset</div>
+            </div>
+            <button class="button">
+              <div class="primary"><div class="title-3">Submit</div></div>
+            </button>
+          </div>
+          <div class="frame">
+            <div class="div">
+              <div class="title-2">(report) 양식</div>
+              <div class="selection">
+                <div class="label-normal"><div class="label-text">Upload...</div></div>
+              </div>
+              <div class="description-2">Select data analysis</div>
+            </div>
+            <button class="button">
+              <div class="primary"><div class="title-3">Submit</div></div>
+            </button>
+          </div>
+          <img class="img" src="img/image.svg" />
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="footer-wrapper">
+          <p class="footer-text">© 2024 Targeted Automation of Data Analysis. Hello, my friend.</p>
+        </div>
+      </footer>
+    </div>
+
+  </body>
+</html>
