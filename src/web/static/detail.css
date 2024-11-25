@@ -1,0 +1,333 @@
+.dataset-detail {
+    display: flex;
+    flex-direction: column;
+    height: 1024px;
+    align-items: center;
+    gap: 20px;
+    padding: 80px 0px;
+    position: relative;
+    background-color: #ffffff;
+  }
+  
+  .dataset-detail .title-detail {
+    display: flex;
+    flex-direction: column;
+    height: 108px;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    padding: 60px 170px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    overflow: hidden;
+  }
+  
+  .dataset-detail .view {
+    display: flex;
+    width: 1100px;
+    align-items: center;
+    position: relative;
+    flex: 0 0 auto;
+    margin-top: -30.00px;
+    margin-bottom: -30.00px;
+  }
+  
+  .dataset-detail .text-wrapper {
+    position: relative;
+    width: 1100px;
+    margin-top: -1.00px;
+    font-family: "Roboto-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 40px;
+    letter-spacing: 0;
+    line-height: 48px;
+  }
+  
+  .dataset-detail .vector {
+    position: absolute;
+    width: 1440px;
+    height: 1px;
+    top: 108px;
+    left: 0;
+    object-fit: cover;
+  }
+  
+  .dataset-detail .content {
+    display: flex;
+    flex-direction: column;
+    width: 1440px;
+    min-height: 608px;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    position: relative;
+    flex: 0 0 auto;
+    margin-bottom: -1080.00px;
+    background-color: #ffffff;
+  }
+  
+  .dataset-detail .datadetailcard {
+    display: flex;
+    flex-direction: column;
+    width: 900px;
+    align-items: flex-start;
+    gap: 10px;
+    padding: 20px 0px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: #ffffff;
+  }
+  
+  .dataset-detail .frame {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 4px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: #ffe071;
+    border-radius: 10px;
+  }
+  
+  .dataset-detail .div {
+    position: relative;
+    width: fit-content;
+    margin-top: -1.00px;
+    font-family: "Roboto-Medium", Helvetica;
+    font-weight: 500;
+    color: #000000;
+    font-size: 20px;
+    letter-spacing: 0;
+    line-height: 20px;
+    white-space: nowrap;
+  }
+  
+  .dataset-detail .text-content {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: center;
+    gap: 10px 10px;
+    padding: 10px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+    border-radius: 10px;
+    border: 1px solid;
+    border-color: #4a7fb1;
+  }
+  
+  .dataset-detail .text-wrapper-2 {
+    width: 880px;
+    margin-top: -1.00px;
+    font-family: "Roboto-Medium", Helvetica;
+    font-weight: 500;
+    color: #000000;
+    font-size: 12px;
+    line-height: 12px;
+    position: relative;
+    letter-spacing: 0;
+  }
+  
+  .dataset-detail .datadetailcard-file {
+    display: flex;
+    flex-direction: column;
+    width: 900px;
+    align-items: flex-start;
+    position: relative;
+    flex: 0 0 auto;
+  }
+  
+  .dataset-detail .div-2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 10px 22px;
+    position: relative;
+    align-self: stretch;
+    width: 100%;
+    flex: 0 0 auto;
+    background-color: #ffffff;
+  }
+  
+  .dataset-detail .text-wrapper-3 {
+    width: fit-content;
+    margin-top: -1.00px;
+    font-family: "Roboto-Medium", Helvetica;
+    font-weight: 500;
+    color: #000000;
+    font-size: 12px;
+    line-height: 12px;
+    white-space: nowrap;
+    position: relative;
+    letter-spacing: 0;
+  }
+  
+  .dataset-detail .text-wrapper-4 {
+    position: relative;
+    width: fit-content;
+    font-family: "Roboto-Medium", Helvetica;
+    font-weight: 500;
+    color: #000000;
+    font-size: 12px;
+    letter-spacing: 0;
+    line-height: 12px;
+    white-space: nowrap;
+  }
+  
+  .dataset-detail .small-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 2px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: #bababa;
+    border-radius: 10px;
+    overflow: hidden;
+  }
+  
+  .dataset-detail .text-wrapper-5 {
+    width: fit-content;
+    margin-top: -1.00px;
+    font-family: "Roboto-Medium", Helvetica;
+    font-weight: 500;
+    color: #000000;
+    font-size: 10px;
+    line-height: 10px;
+    white-space: nowrap;
+    position: relative;
+    letter-spacing: 0;
+  }
+  
+  .dataset-detail .top-bar {
+    display: flex;
+    width: 1440px;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    padding: 20px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: #ffffff;
+    box-shadow: 0px 0px 6px #0000001f;
+  }
+  
+  .dataset-detail .rectangle {
+    position: relative;
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+  }
+  
+  .dataset-detail .title {
+    flex: 1;
+    font-family: "Roboto-Medium", Helvetica;
+    font-weight: 500;
+    color: #000000;
+    font-size: 28px;
+    line-height: 36px;
+    position: relative;
+    letter-spacing: 0;
+  }
+  
+  .dataset-detail .navbar {
+    display: inline-flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 40px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: #ffffff;
+  }
+  
+  .dataset-detail .textfield {
+    display: flex;
+    width: 200px;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4px;
+    padding: 8px;
+    position: relative;
+    border-radius: 6px;
+    border: 1px solid;
+    border-color: #0000001a;
+  }
+  
+  .dataset-detail .text {
+    flex: 1;
+    margin-top: -1.00px;
+    font-family: "Roboto-Regular", Helvetica;
+    font-weight: 400;
+    color: #00000080;
+    font-size: 14px;
+    line-height: 20px;
+    position: relative;
+    letter-spacing: 0;
+  }
+  
+  .dataset-detail .ic-search {
+    position: relative;
+    width: 20px;
+    height: 20px;
+  }
+  
+  .dataset-detail .tab {
+    position: relative;
+    width: fit-content;
+    font-family: "Roboto-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 16px;
+    letter-spacing: 0;
+    line-height: 24px;
+    white-space: nowrap;
+  }
+  
+  .dataset-detail .footer {
+    display: flex;
+    width: 1440px;
+    height: 80px;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    padding: 60px;
+    position: relative;
+    margin-bottom: -1180.00px;
+    background-color: #ffffff;
+    overflow: hidden;
+  }
+  
+  .dataset-detail .container {
+    display: inline-flex;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    position: relative;
+    flex: 0 0 auto;
+    margin-top: -70.00px;
+    margin-bottom: -70.00px;
+  }
+  
+  .dataset-detail .p {
+    align-self: stretch;
+    width: 628px;
+    margin-top: -1.00px;
+    font-family: "Roboto-Regular", Helvetica;
+    font-weight: 400;
+    color: #828282;
+    font-size: 13px;
+    text-align: center;
+    line-height: 28px;
+    position: relative;
+    letter-spacing: 0;
+  }
+  

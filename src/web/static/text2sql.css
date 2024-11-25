@@ -1,0 +1,62 @@
+
+.text2sql {
+    display: flex;
+    flex-direction: column;
+    height: 1024px;
+    align-items: center;
+    gap: 20px;
+    padding: 80px 0px;
+    position: relative;
+    background-color: #ffffff;
+  }
+
+.text2sql .title {
+    display: flex;
+    flex-direction: column;
+    width: 1440px;
+    align-items: center;
+    justify-content: center;
+    gap: 60px;
+    padding: 60px 170px;
+    position: relative;
+    flex: 0 0 auto;
+    background-color: #ffffff;
+    overflow: hidden;
+  }
+  
+  .text2sql .container {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    align-self: stretch;
+    width: 100%;
+    align-items: center;
+    position: relative;
+    flex: 0 0 auto;
+  }
+  
+  .text2sql .text-wrapper {
+    position: relative;
+    width: 520px;
+    margin-top: -1.00px;
+    font-family: "Roboto-Bold", Helvetica;
+    font-weight: 700;
+    color: #000000;
+    font-size: 40px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 48px;
+  }
+  
+  .text2sql .description {
+    position: relative;
+    width: 520px;
+    font-family: "Roboto-Regular", Helvetica;
+    font-weight: 400;
+    color: #000000;
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 0;
+    line-height: 24px;
+  }
+  
