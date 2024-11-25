@@ -6,9 +6,9 @@ from datetime import datetime
 from dotenv import load_dotenv  
 
 # Extractor 폴더 경로를 시스템 경로에 추가  
-current_dir = os.path.dirname(os.path.abspath(__file__))  
-extractor_path = os.path.join(current_dir, 'Extractor')  
-sys.path.append(extractor_path)  
+#current_dir = os.path.dirname(os.path.abspath(__file__))  
+#extractor_path = os.path.join(current_dir, 'Extractor')  
+#sys.path.append(extractor_path)  
 
 from extract_today import get_oilprice_now  
 
@@ -23,9 +23,10 @@ SCHEDULE_INTERVAL = 5  # 테스트용: 5분 간격
 def init_db_info():  
     """데이터베이스 연결 정보 초기화"""  
     # Extractor 폴더 내의 .env 파일 경로를 명시적으로 지정  
-    env_path = os.path.join(extractor_path, '.env')  
-    load_dotenv(env_path, override=True)  
-    
+    #env_path = os.path.join(extractor_path, '.env')  
+    #load_dotenv(env_path, override=True)  
+    load_dotenv(override=True)  
+
     return {  
         "host": os.environ.get('DB_HOST'),  
         "port": int(os.environ.get('DB_PORT')),  
