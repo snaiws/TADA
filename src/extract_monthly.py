@@ -6,10 +6,10 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait  
 from selenium.webdriver.support import expected_conditions as EC  
 
-from core.selenium import setup_driver, handle_popups  
-from parser.petronet_parser import extract_table_data, set_date_and_search
-from loader.db.connector import Database
-from loader.db.query import query_creat_table_oil, query_update_oilprice
+from Extractor.core.selenium import setup_driver, handle_popups  
+from Extractor.parser.petronet_parser import extract_table_data, set_date_and_search
+from data_engineering.db.connector import Database
+from Extractor.loader.db.query import query_creat_table_oil, query_update_oilprice
 
 
 
@@ -90,13 +90,13 @@ if __name__ == "__main__":
     from dotenv import load_dotenv  
 
     # .env 파일 로드
-    load_dotenv()
+    load_dotenv(override=True)
     
     dbinfo = {
-        "host":os.getenv('DB_HOST'),
-        "port":int(os.getenv('DB_PORT')),
-        "user":os.getenv('DB_USER'),
-        "password":os.getenv('DB_PASSWORD'),
-        "database":os.getenv('DB_NAME')
+        "host":os.environ.get('DB_HOST'),
+        "port":int(os.environ.get('DB_PORT')),
+        "user":os.environ.get('DB_USER'),
+        "password":os.environ.get('DB_PASSWORD'),
+        "database":os.environ.get('DB_NAME')
     }
     get_oilprice(dbinfo)

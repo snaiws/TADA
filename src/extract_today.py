@@ -3,8 +3,8 @@ from selenium.webdriver.common.by import By
 from selenium.webdriver.support.ui import WebDriverWait  
 from selenium.webdriver.support import expected_conditions as EC  
 from datetime import datetime  
-from loader.db.connector import Database  
-from loader.db.query import query_creat_table_daily_oil, query_update_daily_oilprice  
+from data_engineering.db.connector import Database  
+from Extractor.loader.db.query import query_creat_table_daily_oil, query_update_daily_oilprice  
 
 def get_oilprice_now(dbinfo):  
     driver = None  
