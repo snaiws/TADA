@@ -20,7 +20,7 @@ class Chatbot:
         """지식 베이스에 문서 추가"""  
         self.document_store.add_documents(texts, metadata)  
         
-
+        
     def get_context_from_rag(self, query: str) -> Optional[str]:  
         """RAG 시스템에서 관련 컨텍스트 검색"""  
         try:  

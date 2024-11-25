@@ -12,6 +12,7 @@ class OpenAIClient:
         self.system_prompt = system_prompt
         self.connect()
 
+
     def connect(self):
         self.client = OpenAI(api_key=self.__key)  
 
