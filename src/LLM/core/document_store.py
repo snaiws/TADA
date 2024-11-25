@@ -1,7 +1,10 @@
+from typing import List, Dict, Optional  
+
+import numpy as np  
 import faiss  
 from sentence_transformers import SentenceTransformer  
-import numpy as np  
-from typing import List, Dict, Optional  
+
+
 
 class DocumentStore:  
     def __init__(self):  
@@ -14,6 +17,7 @@ class DocumentStore:
         
         # 문서 저장  
         self.documents = []  
+        
 
     def add_documents(self, texts: List[str], metadata: Optional[List[Dict]] = None):  
         """문서 추가"""  
@@ -27,7 +31,8 @@ class DocumentStore:
         self.index.add(np.array(embeddings).astype('float32'))  
         
         # 문서 저장  
-        self.documents.extend(texts)  
+        self.documents.extend(texts)
+
 
     def search(self, query: str, n_results: int = 3) -> List[str]:  
         """질문과 관련된 문서 검색"""  

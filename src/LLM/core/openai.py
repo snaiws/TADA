@@ -1,18 +1,31 @@
-import os  
 from typing import List, Optional  
+
 from openai import OpenAI  
-from dotenv import load_dotenv  
+
+
 
 class OpenAIClient:  
-    def __init__(self):  
-        load_dotenv()  
-        self.client = OpenAI(api_key=os.getenv('OPENAI_API_KEY'))  
-        self.model = "gpt-3.5-turbo"  
-        self.system_prompt = """You are a helpful AI assistant with strong contextual awareness.   
-        Always maintain context from the conversation history and refer back to previous information when relevant.   
-        If you're unsure about something previously discussed, you can ask for clarification.  
-        Provide clear, accurate, and concise responses while maintaining a natural conversational tone."""  
+    def __init__(self, model_name, key, system_prompt):  
+        self.model_name = model_name
+        self.__key = key
+        self.client = None
+        self.system_prompt = system_prompt
+        self.connect()
+
+    def connect(self):
+        self.client = OpenAI(api_key=self.__key)  
+
+
+    def check_key(self):
+        if self.client is not None:
+            self.connect()
+        try:
+            self.client.models.list()
+            return True
+        except:
+            return False
         
+
     def get_completion(  
         self,   
         messages: List[dict],  
@@ -22,7 +35,7 @@ class OpenAIClient:
         """OpenAI API를 호출하여 응답을 생성"""  
         try:  
             response = self.client.chat.completions.create(  
-                model=self.model,  
+                model=self.model_name,  
                 messages=messages,  
                 temperature=temperature,  
                 max_tokens=max_tokens  
@@ -56,3 +69,24 @@ class OpenAIClient:
         messages.append({"role": "user", "content": user_input})  
         
         return messages
+    
+
+
+if __name__ == "__main__":
+    # python -m src.LLM.core.openai
+    import os
+    
+    from dotenv import load_dotenv
+    load_dotenv(verbose=False)
+
+    # init
+    model_name = "gpt-3.5-turbo"
+    key = os.getenv("OPENAI_API_KEY")
+    system_prompt = """You are a helpful AI assistant with strong contextual awareness.   
+        Always maintain context from the conversation history and refer back to previous information when relevant.   
+        If you're unsure about something previously discussed, you can ask for clarification.  
+        Provide clear, accurate, and concise responses while maintaining a natural conversational tone.
+        """  
+    core = OpenAIClient(model_name, key, system_prompt)
+
+    print(core.check_key())
