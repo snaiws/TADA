@@ -1,12 +1,8 @@
 import os  
 from typing import Tuple  
-import sys
-from pathlib import Path
-from data_engineering.db.connector import Database  
 
-# 프로젝트 루트 경로 추가  
-project_root = Path(__file__).parent.parent.parent  
-sys.path.append(str(project_root)) 
+from .db.connector import Database  
+
 
 
 def get_file_metadata(local_path: str, category: str, bucket_name: str, object_path: str) -> Tuple:  
