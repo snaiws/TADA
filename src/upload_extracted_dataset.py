@@ -1,33 +1,15 @@
 import os  
-import sys  
 import concurrent.futures  
 from tqdm.notebook import tqdm  
 from dotenv import load_dotenv  
 import multiprocessing  
 
-# 프로젝트 루트 경로 설정  
-sys.path.append('./src')  
-
-from data_engineering.obj_storage.boto3 import MinIOClient  
+from data_engineering.obj_storage.connector import MinIOClient  
 from data_engineering.update_objectfile import upload_file_with_metadata  
 from data_engineering.db.connector import Database  
+from data_engineering.setting_DB import create_object_storage_table  
 
-# 환경 변수 로드  
-load_dotenv('.env')  
 
-# 설정  
-BUCKET_NAME = "tada"  
-EXTRACT_PATH = "../../IMG_upload/extracted_data"  
-IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".bmp"}  
-MAX_WORKERS = multiprocessing.cpu_count()  # CPU 코어 수만큼 워커 설정  
-
-# 처리할 디렉토리 구조  
-DIRECTORIES = [  
-    "Training/01.원천데이터",  
-    "Training/02.라벨링데이터",  
-    "Validation/01.원천데이터",  
-    "Validation/02.라벨링데이터"  
-]  
 
 def get_uploaded_files():  
     """DB에서 이미 업로드된 파일 목록 가져오기"""  
@@ -43,6 +25,7 @@ def get_uploaded_files():
     results = db.getter(query)  
     return {(record['category'], record['object_path']) for record in results}  
 
+
 def upload_file(args):  
     """단일 파일 업로드 함수"""  
     file_path, category, object_key = args  
@@ -57,6 +40,7 @@ def upload_file(args):
     except Exception as e:  
         return False, f"Error uploading {object_key}: {str(e)}"  
 
+
 def main():  
     # MinIO 클라이언트 초기화 및 버킷 확인  
     minio_client = MinIOClient()  
@@ -65,7 +49,6 @@ def main():
         print(f"버킷 '{BUCKET_NAME}' 생성됨")  
     
     # DB 테이블 생성 확인  
-    from data_engineering.db.init_db import create_object_storage_table  
     create_object_storage_table()  
     
     # 이미 업로드된 파일 목록 가져오기  
@@ -138,5 +121,22 @@ def main():
     for record in records:  
         print(f"- {record['category']}: {record['count']}개")  
 
+
+
 if __name__ == "__main__":  
+    # 환경 변수 로드  
+    load_dotenv('.env')  
+    # 설정  
+    BUCKET_NAME = "tada"  
+    EXTRACT_PATH = "../../IMG_upload/extracted_data"  
+    IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".bmp"}  
+    MAX_WORKERS = multiprocessing.cpu_count()  # CPU 코어 수만큼 워커 설정  
+
+    # 처리할 디렉토리 구조  
+    DIRECTORIES = [  
+        "Training/01.원천데이터",  
+        "Training/02.라벨링데이터",  
+        "Validation/01.원천데이터",  
+        "Validation/02.라벨링데이터"  
+    ]  
     main()

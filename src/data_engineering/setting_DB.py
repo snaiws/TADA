@@ -3,7 +3,7 @@ from pathlib import Path
 
 from dotenv import load_dotenv  
 
-from data_engineering.db.connector import Database  
+from .db.connector import Database  
 
 
 
