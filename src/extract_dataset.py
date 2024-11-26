@@ -3,8 +3,8 @@ import zipfile
 from tqdm.notebook import tqdm  
 
 # 설정  
-DATASET_PATH = "../../IMG_upload/239.건축 도면 데이터/01-1.정식개방데이터"  
-EXTRACT_PATH = "../../IMG_upload/extracted_data"  # 압축 해제될 경로  
+DATASET_PATH = "G:/Dropbox/OssmMath/52_AI-Project/DataSet"  
+EXTRACT_PATH = "G:/Dropbox/OssmMath/52_AI-Project/ExtractedDataSet"  # 압축 해제될 경로  
 
 # 처리할 디렉토리 구조  
 DIRECTORIES = [  

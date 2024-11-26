@@ -1,11 +1,43 @@
-from data_engineering.db.connector import Database  
-from dotenv import load_dotenv  
+
 import os  
+from dotenv import load_dotenv  
+from dotenv import dotenv_values
+
 from pathlib import Path
+
+from data_engineering.db.connector import Database  
+
 
 def create_object_storage_table():  
     #load_dotenv()  
-    load_dotenv(Path(__file__).parent.parent / '.env')
+    
+    env_path = Path(__file__).parent.parent.parent / '.env'  
+    print(f"\n.env 파일 경로: {env_path}")  
+    print(f"파일 존재 여부: {env_path.exists()}")  
+    print(f"절대 경로: {env_path.absolute()}\n")  
+
+    #oad_dotenv(env_path)
+
+    env_path = Path(__file__).parent.parent.parent / '.env'  
+    
+    # dotenv_values 사용  
+    config = dotenv_values(env_path)  
+    print("\n=== dotenv_values 결과 ===")  
+    print(config)  
+    
+    # 직접 환경변수 설정  
+    for key, value in config.items():  
+        os.environ[key] = value  
+
+
+
+    # 디버깅용 출력  
+    print("Environment variables:")  
+    print(f"DB_HOST: {os.getenv('DB_HOST')}")  
+    print(f"DB_PORT: {os.getenv('DB_PORT')}")  
+    print(f"DB_USER: {os.getenv('DB_USER')}")  
+    print(f"DB_NAME: {os.getenv('DB_NAME')}")  
+    print(f"PASSWORD: {'*' * len(os.getenv('DB_PASSWORD', ''))}")  
 
     db = Database(  
         host=os.getenv('DB_HOST'),  

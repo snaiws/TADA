@@ -6,10 +6,10 @@ from dotenv import load_dotenv
 import multiprocessing  
 
 # 프로젝트 루트 경로 설정  
-sys.path.append('./src')  
+#sys.path.append('./src')  
 
+from update_objectfile import upload_file_with_metadata 
 from data_engineering.obj_storage.boto3 import MinIOClient  
-from data_engineering.update_objectfile import upload_file_with_metadata  
 from data_engineering.db.connector import Database  
 
 # 환경 변수 로드  
@@ -17,8 +17,8 @@ load_dotenv('.env')
 
 # 설정  
 BUCKET_NAME = "tada"  
-EXTRACT_PATH = "../../IMG_upload/extracted_data"  
-IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".gif", ".bmp"}  
+EXTRACT_PATH = "../../ExtractedDataSet"  
+SUPPORTED_EXTENSIONS = {".xlsx", ".json"}  
 MAX_WORKERS = multiprocessing.cpu_count()  # CPU 코어 수만큼 워커 설정  
 
 # 처리할 디렉토리 구조  
@@ -86,7 +86,7 @@ def main():
                 category_name = ''  
             
             for filename in files:  
-                if any(filename.lower().endswith(ext) for ext in IMAGE_EXTENSIONS):  
+                if any(filename.lower().endswith(ext) for ext in SUPPORTED_EXTENSIONS):  
                     file_path = os.path.join(root, filename)  
                     category = f"{dir_path}/{category_name}".rstrip('/')  
                     object_key = f"{category}/{filename}"  

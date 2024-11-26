@@ -30,6 +30,19 @@ def insert_file_metadata(db: Database, local_path: str, category: str,
     """DB에 파일 메타데이터 삽입"""  
     try:  
         metadata = get_file_metadata(local_path, category, bucket_name, object_path)  
+
+
+        print("\nDebug Info:")  
+        print(f"local_path: {local_path}")  
+        print(f"Metadata values:")  
+        print(f"- category: {metadata[0]}")  
+        print(f"- bucket_name: {metadata[1]}")  
+        print(f"- object_path: {metadata[2]}")  
+        print(f"- file_name: {metadata[3]}")  
+        print(f"- ext: {metadata[4]}")  
+        print(f"- size: {metadata[5]}")  
+        print(f"- version: {metadata[6]}")  
+
         
         query = """  
         INSERT INTO object_storage   
@@ -41,5 +54,9 @@ def insert_file_metadata(db: Database, local_path: str, category: str,
         return True  
         
     except Exception as e:  
-        print(f"Metadata insert error: {str(e)}")  
-        return False
+        print(f"\nError Details:")  
+        print(f"Error type: {type(e)}")  
+        print(f"Error message: {str(e)}")  
+        if hasattr(e, 'args'):  
+            print(f"Error args: {e.args}")  
+        return False 
