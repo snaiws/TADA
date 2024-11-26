@@ -1,14 +1,14 @@
+from datetime import datetime  
+
 from selenium import webdriver  
 from selenium.webdriver.common.by import By  
 from selenium.webdriver.support.ui import WebDriverWait  
 from selenium.webdriver.support import expected_conditions as EC  
-from datetime import datetime  
-from data_engineering.db.connector import Database  
-from Extractor.loader.db.query import query_creat_table_daily_oil, query_update_daily_oilprice  
 
-def get_oilprice_now(dbinfo):  
+from .loader.db.query import query_creat_table_daily_oil, query_update_daily_oilprice  
+
+def get_oilprice_now(db):  
     driver = None  
-    db = None  
     
     options = webdriver.ChromeOptions()  
     options.add_argument('--headless')  
@@ -34,15 +34,6 @@ def get_oilprice_now(dbinfo):
             
         price = float(price_element.text.replace(',', ''))  
         print(f"Found price: {price}")  
-        
-        # 데이터베이스 연결  
-        db = Database(  
-            host=dbinfo["host"],  
-            port=dbinfo["port"],  
-            user=dbinfo["user"],  
-            password=dbinfo["password"],  
-            database=dbinfo["database"]  
-        )  
         
         # 테이블 생성 확인  
         db.setter(query_creat_table_daily_oil())  
@@ -83,12 +74,12 @@ if __name__ == "__main__":
     
     load_dotenv(override=True)  
     
-    dbinfo = {  
-        "host": os.environ.get('DB_HOST'),  
-        "port": int(os.environ.get('DB_PORT')),  
-        "user": os.environ.get('DB_USER'),  
-        "password": os.environ.get('DB_PASSWORD'),  
-        "database": os.environ.get('DB_NAME')  
-    }  
+    # dbinfo = {  
+    #     "host": os.environ.get('DB_HOST'),  
+    #     "port": int(os.environ.get('DB_PORT')),  
+    #     "user": os.environ.get('DB_USER'),  
+    #     "password": os.environ.get('DB_PASSWORD'),  
+    #     "database": os.environ.get('DB_NAME')  
+    # }  
     
-    get_oilprice_now(dbinfo)
+    # get_oilprice_now(dbinfo)

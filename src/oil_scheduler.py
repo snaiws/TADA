@@ -1,16 +1,15 @@
 import sys  
 import os  
+from datetime import datetime  
+
 from apscheduler.schedulers.background import BackgroundScheduler  
 from apscheduler.jobstores.base import JobLookupError  
-from datetime import datetime  
 from dotenv import load_dotenv  
 
-# Extractor 폴더 경로를 시스템 경로에 추가  
-#current_dir = os.path.dirname(os.path.abspath(__file__))  
-#extractor_path = os.path.join(current_dir, 'Extractor')  
-#sys.path.append(extractor_path)  
+from Extractor.extract_today import get_oilprice_now  
+from data_engineering.db.connector import Database
 
-from extract_today import get_oilprice_now  
+
 
 # 전역 설정 변수들  
 JOB_ID = 'daily_oil_price_job'  # 작업 식별자  
@@ -18,6 +17,7 @@ SCHEDULE_INTERVAL = 5  # 테스트용: 5분 간격
 # 운영용 설정  
 # SCHEDULE_TYPE = 'daily'  # 실행 타입: 'interval' 또는 'daily'  
 # SCHEDULE_TIME = '09:00'  # 매일 실행할 시각 (24시간 형식)  
+
 
 # oil_scheduler.py 수정  
 def init_db_info():  
@@ -35,15 +35,18 @@ def init_db_info():
         "database": os.environ.get('DB_NAME')  
     }
 
+
 def schedule_job():  
     """실제 실행될 작업"""  
     print(f"\n[{datetime.now()}] 유가 정보 수집 시작...")  
     try:  
         dbinfo = init_db_info()  
-        get_oilprice_now(dbinfo)  
+        conn = Database(**dbinfo)  
+        get_oilprice_now(conn)  
         print(f"[{datetime.now()}] 유가 정보 수집 완료")  
     except Exception as e:  
         print(f"[{datetime.now()}] 오류 발생: {str(e)}")  
+
 
 def create_scheduler():  
     """스케줄러 생성 및 설정"""  
@@ -81,6 +84,7 @@ def create_scheduler():
     
     return scheduler  
 
+
 def run_scheduler():  
     """스케줄러 실행"""  
     scheduler = create_scheduler()  
@@ -107,6 +111,8 @@ def run_scheduler():
     except Exception as e:  
         print(f"스케줄러 실행 중 오류 발생: {str(e)}")  
         scheduler.shutdown()  
+
+
 
 if __name__ == "__main__":  
     run_scheduler()
