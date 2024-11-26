@@ -34,13 +34,19 @@ class DocumentStore:
         self.documents.extend(texts)
 
 
-    def search(self, query: str, n_results: int = 3) -> List[str]:  
-        """질문과 관련된 문서 검색"""  
-        # 쿼리 임베딩  
-        query_embedding = self.model.encode([query])  
-        
-        # 유사도 검색  
-        D, I = self.index.search(np.array(query_embedding).astype('float32'), n_results)  
-        
-        # 관련 문서 반환  
+    def search(self, query: str, n_results: int = 3) -> List[str]:
+        """질문과 관련된 문서 검색"""
+        # 문서가 비어 있는 경우 처리
+        if not self.documents:
+            print("검색할 문서가 없습니다. 먼저 문서를 추가하세요.")
+            return []
+
+        # 쿼리 임베딩
+        query_embedding = self.model.encode([query])
+
+        # 유사도 검색
+        D, I = self.index.search(np.array(query_embedding).astype('float32'), n_results)
+        print(self.documents)
+
+        # 관련 문서 반환
         return [self.documents[i] for i in I[0]]
