@@ -48,9 +48,9 @@ def main():
                 print(f"\n처리 기간: {current_start.strftime('%Y-%m')} ~ {current_end.strftime('%Y-%m')}")  
                 set_date_and_search(driver, current_start, current_end)  
                 
-                headers, data = extract_table_data(driver, current_start)  # current_start 전달  
+                headers, data = extract_table_data(driver)  
                 print(f"추출된 데이터 행 수: {len(data)}")  
-            
+
                 # 데이터 저장  
                 db_loader.insert_oil_price_data(data, headers)  
                 print(f"기간 {current_start.strftime('%Y.%m')} ~ {current_end.strftime('%Y.%m')} 데이터 저장 완료")  
