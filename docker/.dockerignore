@@ -1,0 +1,26 @@
+# Python  
+__pycache__/  
+*.py[cod]  
+*$py.class  
+*.so  
+.Python  
+venv/  
+ENV/  
+.env  
+
+# Jupyter Notebook  
+.ipynb_checkpoints  
+
+# VS Code  
+.vscode/  
+
+# Git  
+.git/  
+.gitignore  
+
+# 기타  
+*.log  
+*.csv  
+*.dat  
+backup_*/  
+notebooks/

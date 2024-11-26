@@ -1,0 +1,12 @@
+services:  
+  scheduler:  
+    build:  
+      context: ../src  
+      dockerfile: ../docker/Dockerfile  
+    volumes:  
+      - ../src:/app:rw  
+    env_file:  
+      - ../src/.env  
+    environment:  
+      - TZ=Asia/Seoul  
+    restart: unless-stopped
